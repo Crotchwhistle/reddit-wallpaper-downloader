@@ -9,26 +9,26 @@ import io
 import subprocess
 import glob
 
-# Configuration file path
+# config file
 CONFIG_FILE = "config.json"
 
-# Load configuration
+# load config
 def load_config():
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "r") as file:
             return json.load(file)
     return {"download_directory": os.path.expanduser("~")}
 
-# Save configuration
+# save config
 def save_config(config):
     with open(CONFIG_FILE, "w") as file:
         json.dump(config, file)
 
-# Default directory for saving wallpapers
+# default directory for saving wallpapers
 config = load_config()
 download_directory = config["download_directory"]
 
-# Global variables for pagination
+# global variables for pagination
 current_page = 0
 posts = []
 
@@ -113,7 +113,7 @@ def display_images():
 def set_wallpaper(image_url):
     imageContents = requests.get(image_url).content
 
-    # Find the next available filename
+    # find the next available filename
     i = 0
     while os.path.exists(os.path.join(download_directory, f"wallpaper_{i}.jpg")):
         i += 1
@@ -143,11 +143,11 @@ def prev_page():
     current_page -= 1
     display_images()
 
-# Create the main window
+# create main window
 root = tk.Tk()
 root.title("Reddit Wallpaper Downloader")
 
-# Create and place the widgets
+# create and place widgets
 label = tk.Label(root, text="Enter Subreddit URL:")
 label.pack(pady=10)
 
@@ -190,5 +190,5 @@ prev_button.pack(side=tk.LEFT, padx=5)
 next_button = tk.Button(pagination_frame, text="Next", command=next_page)
 next_button.pack(side=tk.LEFT, padx=5)
 
-# Run the application
+# run application
 root.mainloop()
